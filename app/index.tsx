@@ -1,25 +1,37 @@
-import { useState } from 'react';
-import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, Alert } from 'react-native';
-import { signInWithEmailAndPassword, createUserWithEmailAndPassword, updateProfile } from "firebase/auth";
+import { useState } from "react";
+import {
+  StyleSheet,
+  Text,
+  View,
+  Image,
+  TextInput,
+  TouchableOpacity,
+  Alert,
+} from "react-native";
+import {
+  signInWithEmailAndPassword,
+  createUserWithEmailAndPassword,
+  updateProfile,
+} from "firebase/auth";
 import { useRouter } from "expo-router";
 import { auth } from "../firebase";
-import { ValidationFromData } from '../constants/Vaidation';
+import { ValidationFromData } from "../constants/Vaidation";
 export default function Index() {
   const router = useRouter();
   const [isSignInForm, setIsSignInForm] = useState(true);
   const [errorMessage, setErrorMessage] = useState(null);
 
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [userName, setUserName] = useState('');
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [userName, setUserName] = useState("");
 
   const handleClickButton = () => {
     const message = ValidationFromData(email, password);
     setErrorMessage(message);
 
-    console.log('Email:', email);
-    console.log('Password:', password);
-    console.log('Validation message:', message);
+    console.log("Email:", email);
+    console.log("Password:", password);
+    console.log("Validation message:", message);
 
     if (message) return;
     if (!isSignInForm) {
@@ -53,12 +65,14 @@ export default function Index() {
   return (
     <View style={styles.container}>
       <Image
-        source={{ uri: 'https://images.pexels.com/photos/3585095/pexels-photo-3585095.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1' }}
+        source={{
+          uri: "https://images.pexels.com/photos/3585095/pexels-photo-3585095.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1",
+        }}
         style={styles.backgroundImage}
       />
 
       <View style={styles.formContainer}>
-        <Text style={styles.title}>{isSignInForm ? 'Sign In' : 'Sign Up'}</Text>
+        <Text style={styles.title}>{isSignInForm ? "Sign In" : "Sign Up"}</Text>
 
         {!isSignInForm && (
           <TextInput
@@ -84,13 +98,19 @@ export default function Index() {
           value={password}
           onChangeText={setPassword}
         />
-        {errorMessage ? <Text style={styles.errorText}>{errorMessage}</Text> : null}
+        {errorMessage ? (
+          <Text style={styles.errorText}>{errorMessage}</Text>
+        ) : null}
         <TouchableOpacity style={styles.button} onPress={handleClickButton}>
-          <Text style={styles.buttonText}>{isSignInForm ? 'Sign In' : 'Sign Up'}</Text>
+          <Text style={styles.buttonText}>
+            {isSignInForm ? "Sign In" : "Sign Up"}
+          </Text>
         </TouchableOpacity>
         <TouchableOpacity onPress={toggleToSignUpForm}>
           <Text style={styles.toggleText}>
-            {isSignInForm ? 'New to Search Images? Sign Up Now' : 'Already registered? Sign In Now.'}
+            {isSignInForm
+              ? "New to Search Images? Sign Up Now"
+              : "Already registered? Sign In Now."}
           </Text>
         </TouchableOpacity>
       </View>
@@ -100,61 +120,61 @@ export default function Index() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    position: 'relative',
+    position: "relative",
   },
   backgroundImage: {
-    position: 'absolute',
+    position: "absolute",
     top: 0,
     left: 0,
     right: 0,
     bottom: 0,
-    width: '100%',
-    height: '100%',
-    resizeMode: 'cover',
+    width: "100%",
+    height: "100%",
+    resizeMode: "cover",
   },
   formContainer: {
-    position: 'absolute',
-    top: '30%',
-    left: '10%',
-    right: '10%',
-    backgroundColor: 'rgba(0, 0, 0, 0.7)',
+    position: "absolute",
+    top: "30%",
+    left: "10%",
+    right: "10%",
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
     padding: 20,
     borderRadius: 10,
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
-    color: '#fff',
+    fontWeight: "bold",
+    color: "#fff",
     marginBottom: 20,
-    textAlign: 'center',
+    textAlign: "center",
   },
   input: {
-    backgroundColor: '#333',
-    color: '#fff',
+    backgroundColor: "#333",
+    color: "#fff",
     padding: 10,
     marginBottom: 15,
     borderRadius: 5,
     fontSize: 16,
   },
   button: {
-    backgroundColor: '#e50914',
+    backgroundColor: "#e50914",
     padding: 15,
     borderRadius: 10,
-    alignItems: 'center',
+    alignItems: "center",
   },
   buttonText: {
-    color: '#fff',
+    color: "#fff",
     fontSize: 18,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
   toggleText: {
-    color: '#fff',
+    color: "#fff",
     marginTop: 15,
-    textAlign: 'center',
-    textDecorationLine: 'underline',
+    textAlign: "center",
+    textDecorationLine: "underline",
   },
   errorText: {
-    color: 'red',
+    color: "red",
     fontSize: 14,
     marginBottom: 10,
   },
